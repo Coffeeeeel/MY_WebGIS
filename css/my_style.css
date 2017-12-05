@@ -6,7 +6,7 @@
 .mouse-position-wrapper{
     width:118px;
     height:22px;
-    color:#FFFFFF;
+    color: #ffffff;
     position:absolute;
     left:4px;
     bottom:13px;
@@ -86,4 +86,6 @@ a:hover{
     text-decoration:none;
     color: #2b669a;
 }
-
+#info{
+    font-size:15px;
+}

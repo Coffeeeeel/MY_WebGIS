@@ -4,7 +4,12 @@ var base_map = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url:mapbox_url
     }),
-    title:"basemap"
+    title:"BASEMAP"
+});
+var OSM = new ol.layer.Tile({
+    source: new ol.source.OSM(),
+    title:"OSM",
+    visible:false,
 });
 var overviewMapControl = new ol.control.OverviewMap({
     className: 'ol-overviewmap ol-custom-overviewmap',
@@ -17,25 +22,24 @@ var overviewMapControl = new ol.control.OverviewMap({
 var point_Layer2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url: 'https://api.mapbox.com/styles/v1/coffeeeel/cj93ukyy62wdl2so2zdng3duk/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY29mZmVlZWVsIiwiYSI6ImNqOTN1NnNyNTJoZ2QzM25yYmlndXpkdmsifQ.i7hkaH-ATHmP-4xdNosCxQ',
-
     }),
     title:"BOHAI_201708POINT",
     visible:false,
-})
-
-var point_Layer = new ol.layer.Tile({
-    title:'BOHAI_201708',
-    visible:false,
-    source: new ol.source.TileWMS({
-        url: 'http://localhost:8081/geoserver/test/wms',
-        params: {
-            'LAYERS': 'test4',
-            'TILED': true
-            // 'z-index': '999',
-        },
-        serverType: 'geoserver'
-    })
 });
+
+// var point_Layer = new ol.layer.Tile({
+//     title:'BOHAI_201708',
+//     visible:false,
+//     source: new ol.source.TileWMS({
+//         url: 'http://localhost:8081/geoserver/test/wms',
+//         params: {
+//             'LAYERS': 'test4',
+//             'TILED': true
+//             // 'z-index': '999',
+//         },
+//         serverType: 'geoserver'
+//     })
+// });
 var vector = new ol.layer.Vector( { source: new ol.source.Vector() });
 
 var map = new ol.Map
@@ -51,21 +55,19 @@ var map = new ol.Map
         }),
         new ol.control.ZoomSlider(),
         new ol.control.ZoomToExtent({
-            extent: [13428000, 4800000,
-                13260000, 4550000]
+            extent:[12904249.65,4393603.85,13924225.36,5050350.79]
         }),
         new ol.control.ScaleLine(),
         new ol.control.LayerPopup()
     ]),
     target: 'map',
-    layers: [base_map,point_Layer,point_Layer2,vector],
+    layers: [base_map,OSM,point_Layer2,vector],
     view: new ol.View({
         center:ol.proj.transform([120.5,39],"EPSG:4326","EPSG:3857"),
         zoom: 8.0,
         projection:'EPSG:3857'
     }),
 });
-
 
 // Main control bar
 var mainbar = new ol.control.Bar();
